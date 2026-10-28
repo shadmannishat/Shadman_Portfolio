@@ -900,15 +900,29 @@ work, strengthening real-world modelling discipline and client-focused problem s
             </div>
             <div class="mt-16">
                 <h3 class="text-3xl font-bold mb-8 text-center text-purple-400">Trainings & Certifications</h3>
-                <div class="card-hover bg-purple-900 bg-opacity-20 p-6 md:p-8 rounded-xl border border-purple-800 border-opacity-30 mb-6 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
-                    <img src="./img/cswp-badge.png" alt="SOLIDWORKS Design Professional (CSWP) badge" style="width:120px;height:auto;flex-shrink:0;">
-                    <div class="flex-1">
-                        <h4 class="text-xl font-bold text-gray-200 mb-1">Certified SOLIDWORKS Professional – Design (CSWP)</h4>
-                        <p class="text-gray-400">Dassault Systèmes · Issued August 2026</p>
-                        <p class="text-sm text-gray-500 mt-1">Credential ID: C-84PQLAXCTZ</p>
-                        <div class="mt-4">
-                            <a href="files/CSWP-Certificate.pdf" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-2 bg-white text-purple-900 rounded-lg hover:text-white hover:bg-[#7D29C6] transition duration-300 text-center">View Certificate</a>
+                <div class="card-hover bg-purple-900 bg-opacity-20 p-6 md:p-8 rounded-xl border border-purple-800 border-opacity-30 mb-6">
+                    <div class="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+                        <img src="./img/cswp-badge.png" alt="SOLIDWORKS Design Professional (CSWP) badge" style="width:120px;height:auto;flex-shrink:0;">
+                        <div class="flex-1">
+                            <h4 class="text-xl font-bold text-gray-200 mb-1">Certified SOLIDWORKS Professional – Design (CSWP)</h4>
+                            <p class="text-gray-400">Dassault Systèmes · Issued August 2026</p>
+                            <p class="text-sm text-gray-500 mt-1">Credential ID: C-84PQLAXCTZ</p>
+                            <div class="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
+                                <!-- Preview Button -->
+                                <button
+                                    onclick="this.closest('.bg-purple-900').querySelector('.preview-box').classList.toggle('hidden')"
+                                    class="flex items-center gap-2 text-sm font-semibold text-purple-400 border border-purple-700 border-opacity-50 px-4 py-2 rounded-lg hover:bg-purple-800 hover:bg-opacity-30 transition-all duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    Preview
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                                </button>
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- Dropdown Image -->
+                    <div class="preview-box hidden mt-5 overflow-hidden rounded-xl border border-purple-800 border-opacity-40">
+                        <img src="./img/cswp-certificate.jpg" alt="CSWP Certificate" style="width:100%; height:auto; display:block;">
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
