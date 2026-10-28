@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAD Portfolio (SolidWorks) — Md Salim Shadman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+
+        /* ===== SHARED GLOBALS ===== */
+        .gradient-text {
+            background: linear-gradient(135deg, #9333ea 0%, #6b21a8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-link.active-nav {
+    color: #a855f7;
+}
+.nav-link.active-nav::after {
+    width: 100%;
+}
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: #9333ea;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .theme-toggle-btn {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: rgba(147,51,234,0.2);
+            border: 1px solid rgba(147,51,234,0.4);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .theme-toggle-btn:hover { background: rgba(147,51,234,0.4); transform: scale(1.1); }
+        .theme-toggle-btn svg { width: 18px; height: 18px; fill: #9333ea; }
+
+        .hamburger { display: flex; flex-direction: column; gap: 4px; cursor: pointer; }
+        .hamburger span { width: 25px; height: 3px; background: currentColor; transition: all 0.3s ease; border-radius: 3px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px,8px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(8px,-8px); }
+
+        #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out; opacity: 0; }
+        #mobile-menu.show { max-height: 400px; opacity: 1; }
+        #mobile-menu a { display: block; padding: 12px 0; transition: all 0.3s ease; transform: translateX(-20px); opacity: 0; }
+        #mobile-menu.show a { transform: translateX(0); opacity: 1; }
+        #mobile-menu.show a:nth-child(1) { transition-delay: 0.1s; }
+        #mobile-menu.show a:nth-child(2) { transition-delay: 0.2s; }
+        #mobile-menu.show a:nth-child(3) { transition-delay: 0.3s; }
+        #mobile-menu.show a:nth-child(4) { transition-delay: 0.4s; }
+        #mobile-menu.show a:nth-child(5) { transition-delay: 0.5s; }
+        #mobile-menu.show a:nth-child(6) { transition-delay: 0.6s; }
+        #mobile-menu.show a:nth-child(7) { transition-delay: 0.7s; }
+        #mobile-menu.show a:nth-child(8) { transition-delay: 0.8s; }
+
+        .social-links { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
+        .social-icon { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 2px solid; }
+        .social-icon:hover { transform: translateY(-5px); }
+        .instagram { background: linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888); border-color:#dc2743; }
+        .facebook { background:#1877F2; border-color:#1877F2; }
+        .linkedin { background:#0A66C2; border-color:#0A66C2; }
+
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25D366; color: white;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+            z-index: 100; transition: all 0.3s ease;
+            animation: wapulse 2s infinite;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        @keyframes wapulse {
+            0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+            50% { box-shadow: 0 4px 30px rgba(37,211,102,0.8); }
+        }
+
+        /* ===== LIGHT MODE ===== */
+        body.light-mode { background: #f5f5f5; color: #1a1a1a; }
+        body.light-mode nav { background: rgba(255,255,255,0.9); border-bottom-color: rgba(147,51,234,0.2); }
+        body.light-mode .nav-link, body.light-mode .text-white { color: #1a1a1a !important; }
+        body.light-mode .text-gray-300, body.light-mode .text-gray-400 { color: #4a4a4a !important; }
+        body.light-mode footer { background: rgba(255,255,255,0.5); }
+        body.light-mode .bg-black { background: #ffffff !important; }
+
+        body.light-mode .project-card { background: rgba(255,255,255,0.95) !important; border-color: rgba(147,51,234,0.2) !important; }
+        body.light-mode .project-title { color: #1a1a1a !important; }
+        body.light-mode .project-body { color: #4a4a4a !important; }
+        body.light-mode .toc-item { color: #4a4a4a !important; }
+        body.light-mode .toc-item:hover { color: #9333ea !important; }
+        body.light-mode .hero-bg { background: linear-gradient(180deg, rgba(245,245,245,0) 0%, rgba(147,51,234,0.05) 100%); }
+        body.light-mode .section-label { color: #7c3aed !important; }
+        body.light-mode .pill { background: rgba(147,51,234,0.12) !important; color: #7c3aed !important; }
+        body.light-mode .divider { background: linear-gradient(to right, transparent, rgba(147,51,234,0.3), transparent); }
+        body.light-mode .highlight-box { background: rgba(147,51,234,0.06) !important; border-color: rgba(147,51,234,0.2) !important; }
+
+        /* ===== BLOG PAGE ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .hero-bg {
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(88,28,135,0.08) 100%);
+            position: absolute; inset: 0; pointer-events: none;
+        }
+
+        .blob {
+            position: absolute; border-radius: 50%;
+            filter: blur(80px); opacity: 0.35;
+            animation: blob 9s infinite;
+        }
+        @keyframes blob {
+            0%,100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(30px,-50px) scale(1.1); }
+            66% { transform: translate(-20px,20px) scale(0.9); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #6b7280; }
+        .breadcrumb a { color: #9333ea; text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: #c084fc; }
+
+        /* Article header */
+        .article-header { animation: fadeInUp 0.8s ease-out both; }
+
+        /* Meta bar */
+        .meta-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+        .meta-item { display: flex; align-items: center; gap: 5px; font-size: 0.82rem; color: #9ca3af; }
+        .meta-item svg { width: 14px; height: 14px; }
+
+        /* Pill tag */
+        .pill {
+            display: inline-block;
+            background: rgba(147,51,234,0.15);
+            color: #c084fc;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            padding: 3px 11px; border-radius: 20px;
+        }
+
+        /* TOC */
+        .toc-wrap {
+            background: rgba(88,28,135,0.1);
+            border: 1px solid rgba(147,51,234,0.2);
+            border-radius: 16px;
+            padding: 1.75rem 2rem;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 90px;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+        .toc-wrap::-webkit-scrollbar { display: none; }
+        .toc-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9333ea; margin-bottom: 1rem; }
+        .toc-item {
+            display: flex; align-items: flex-start; gap: 8px;
+            color: #9ca3af; font-size: 0.83rem; line-height: 1.5;
+            padding: 6px 0; cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+        .toc-item:hover { color: #c084fc; }
+        .toc-item.active { color: #9333ea; font-weight: 600; }
+        .toc-num { font-size: 0.7rem; color: #9333ea; font-weight: 700; min-width: 18px; margin-top: 2px; }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(147,51,234,0.35), transparent);
+            margin: 2.5rem 0;
+        }
+
+        /* Section label */
+        .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9333ea; margin-bottom: 0.5rem; }
+
+        /* Project card */
+        .project-card {
+            background: rgba(88,28,135,0.1);
+            border: 1px solid rgba(147,51,234,0.2);
+            border-radius: 18px;
+            padding: 2rem 2.25rem;
+            transition: all 0.35s ease;
+            scroll-margin-top: 100px;
+        }
+        .project-card:hover {
+            border-color: rgba(147,51,234,0.45);
+            box-shadow: 0 16px 40px rgba(147,51,234,0.12);
+            transform: translateY(-3px);
+        }
+
+        .project-num {
+            font-size: 0.65rem; font-weight: 800; letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #9333ea;
+            background: rgba(147,51,234,0.12);
+            border: 1px solid rgba(147,51,234,0.25);
+            padding: 3px 10px; border-radius: 20px;
+            display: inline-block; margin-bottom: 0.75rem;
+        }
+
+        .project-title { font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; line-height: 1.4; }
+
+        .project-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+        .project-meta-item {
+            font-size: 0.75rem; color: #a78bfa;
+            background: rgba(147,51,234,0.1);
+            padding: 2px 10px; border-radius: 20px;
+            border: 1px solid rgba(147,51,234,0.2);
+        }
+
+        .project-body { color: #c4b5fd; font-size: 0.93rem; line-height: 1.8; margin-bottom: 1rem; }
+
+        /* Highlight box */
+        .highlight-box {
+            background: rgba(147,51,234,0.08);
+            border-left: 3px solid #9333ea;
+            border-radius: 0 10px 10px 0;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+        .highlight-box-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9333ea; margin-bottom: 0.5rem; }
+        .highlight-box ul { list-style: none; padding: 0; margin: 0; }
+        .highlight-box ul li { color: #a78bfa; font-size: 0.85rem; line-height: 1.7; padding-left: 1rem; position: relative; }
+        .highlight-box ul li::before { content: '›'; position: absolute; left: 0; color: #9333ea; font-weight: 700; }
+
+        /* Image */
+        .project-img-wrap {
+            width: 100%;
+            margin-top: 1.25rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(147,51,234,0.25);
+            background: #0d0d0d;
+        }
+        .project-img-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .project-img-wrap:hover img { transform: scale(1.02); }
+         .project-video-wrap {
+        width: 100%;
+        margin-top: 1.25rem;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(147,51,234,0.25);
+        background: #0d0d0d;
+    }
+    .project-video-wrap video {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+        /* Skills grid */
+        .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 0.75rem; }
+        .skill-chip {
+            background: rgba(147,51,234,0.1);
+            border: 1px solid rgba(147,51,234,0.2);
+            border-radius: 8px; padding: 8px 12px;
+            font-size: 0.8rem; color: #a78bfa;
+            text-align: center;
+        }
+
+        /* Progress bar for reading */
+        #reading-progress {
+            position: fixed; top: 0; left: 0;
+            height: 3px; width: 0;
+            background: linear-gradient(to right, #9333ea, #ec4899);
+            z-index: 200; transition: width 0.1s;
+        }
+
+        /* Back to top */
+        .back-top {
+            position: fixed; bottom: 100px; right: 30px;
+            width: 60px; height: 60px; border-radius: 50%;
+            background: rgba(147,51,234,0.85);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 99;
+            opacity: 0; pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(147,51,234,0.4);
+        }
+        .back-top.visible { opacity: 1; pointer-events: auto; }
+        .back-top:hover { background: rgba(147,51,234,1); transform: translateY(-3px); }
+        .back-top svg { width: 18px; height: 18px; fill: white; }
+
+        @media (max-width: 768px) {
+            .toc-wrap { display: none; }
+            .whatsapp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; }
+            .back-top { bottom: 80px; right: 20px; width: 50px; height: 50px; }
+            .project-card { padding: 1.5rem; }
+            .skills-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+
+<!-- Reading progress bar -->
+<div id="reading-progress"></div>
+
+<!-- ===== NAV (identical to portfolio) ===== -->
+<nav class="fixed top-0 w-full bg-black bg-opacity-90 backdrop-blur-md z-50 border-b border-purple-900 border-opacity-20">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <a href="index.html"><span class="gradient-text">Md Salim Shadman</span></a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html#home" class="nav-link hover:text-purple-500">Home</a>
+                <a href="index.html#about" class="nav-link hover:text-purple-500">About</a>
+                <a href="index.html#experience" class="nav-link hover:text-purple-500">Experience</a>
+                <a href="index.html#skills" class="nav-link hover:text-purple-500">Skills</a>
+                <a href="index.html#research" class="nav-link hover:text-purple-500">Research</a>
+                <a href="index.html#portfolio" class="nav-link text-purple-400">Portfolio</a>
+                <a href="index.html#contact" class="nav-link hover:text-purple-500">Contact</a>
+                <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme">
+                    <svg id="theme-icon-sun" viewBox="0 0 24 24" style="display:none;">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="12" y1="21" x2="12" y2="23" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="1" y1="12" x2="3" y2="12" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="21" y1="12" x2="23" y2="12" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <svg id="theme-icon-moon" viewBox="0 0 24 24" style="fill:#9333ea;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="md:hidden flex items-center gap-3">
+                <button class="theme-toggle-btn" onclick="toggleTheme()">
+                    <svg id="theme-icon-sun-m" viewBox="0 0 24 24" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="#9333ea" stroke-width="2" stroke-linecap="round"/></svg>
+                    <svg id="theme-icon-moon-m" viewBox="0 0 24 24" style="fill:#9333ea;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button class="text-white hamburger" onclick="toggleMenu()" id="hamburger">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu">
+            <a href="index.html#home" class="hover:text-purple-500" onclick="toggleMenu()">Home</a>
+            <a href="index.html#about" class="hover:text-purple-500" onclick="toggleMenu()">About</a>
+            <a href="index.html#experience" class="hover:text-purple-500" onclick="toggleMenu()">Experience</a>
+            <a href="index.html#education" class="hover:text-purple-500" onclick="toggleMenu()">Education</a>
+            <a href="index.html#skills" class="hover:text-purple-500" onclick="toggleMenu()">Skills</a>
+            <a href="index.html#research" class="hover:text-purple-500" onclick="toggleMenu()">Research</a>
+            <a href="index.html#portfolio" class="text-purple-400" onclick="toggleMenu()">Portfolio</a>
+            <a href="index.html#contact" class="hover:text-purple-500" onclick="toggleMenu()">Contact</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== ARTICLE HERO ===== -->
+<div class="relative pt-28 pb-14 overflow-hidden">
+    <div class="blob bg-purple-700 w-96 h-96" style="top:-80px;left:-60px;"></div>
+    <div class="blob bg-purple-900 w-72 h-72" style="bottom:0;right:-40px;animation-delay:3s;"></div>
+    <div class="hero-bg"></div>
+
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb mb-6 article-header" style="animation-delay:0.05s">
+            <a href="index.html">Home</a>
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            <a href="index.html#portfolio">Portfolio</a>
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            <span style="color:#9ca3af;">CAD Portfolio</span>
+        </div>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 mb-5 article-header" style="animation-delay:0.1s">
+            <span class="pill">SolidWorks</span>
+            <span class="pill">CAD</span>
+            <span class="pill">Mechanical Design</span>
+            <span class="pill">Power Transmission</span>
+            <span class="pill">Mechanisms</span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-5 article-header" style="animation-delay:0.15s">
+            CAD Portfolio <span class="gradient-text">(SolidWorks)</span>
+        </h1>
+        <p class="text-lg text-gray-300 max-w-2xl mb-7 article-header leading-relaxed" style="animation-delay:0.2s">
+            Selected mechanisms, motion systems, product packaging, and power transmission assemblies — from aerospace landing gear to real fabricated hardware.
+        </p>
+
+        <!-- Meta -->
+        <div class="meta-bar article-header" style="animation-delay:0.25s">
+            <div class="meta-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                16 March 2026
+            </div>
+            <div class="meta-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                11 Projects
+            </div>
+            <div class="meta-item">
+                <!-- Author avatar -->
+                <span style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ec4899);display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;">MS</span>
+                Md Salim Shadman
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MAIN CONTENT (sidebar + article) ===== -->
+<div class="max-w-5xl mx-auto px-6 pb-24">
+    <div class="flex gap-10" style="align-items: flex-start;">
+
+        <!-- ---- SIDEBAR TOC ---- -->
+        <aside class="hidden lg:block w-64 flex-shrink-0" style="position: sticky; top: 90px; align-self: flex-start;">
+            <div class="toc-wrap" style="position: static;">
+                <div class="toc-title">Contents</div>
+                <a href="#intro" class="toc-item"><span class="toc-num">00</span> Overview</a>
+                <a href="#p1" class="toc-item"><span class="toc-num">01</span> Landing Gear Assembly</a>
+                <a href="#p2" class="toc-item"><span class="toc-num">02</span> Manual Gearbox</a>
+                <a href="#p3" class="toc-item"><span class="toc-num">03</span> Pump Gearbox</a>
+                <a href="#p4" class="toc-item"><span class="toc-num">04</span> Dog Clutch</a>
+                <a href="#p5" class="toc-item"><span class="toc-num">05</span> Pulley-Shaft Support</a>
+                <a href="#p6" class="toc-item"><span class="toc-num">06</span> Linear Actuator Stage</a>
+                <a href="#p7" class="toc-item"><span class="toc-num">07</span> Linkage Actuator</a>
+                <a href="#p8" class="toc-item"><span class="toc-num">08</span> Raspberry Pi Enclosure</a>
+                <a href="#p9" class="toc-item"><span class="toc-num">09</span> Spring Latch Bolt</a>
+                <a href="#p10" class="toc-item"><span class="toc-num">10</span> Geneva Mechanism</a>
+                <a href="#p11" class="toc-item"><span class="toc-num">11</span> Four-Bar Linkage</a>
+            </div>
+        </aside>
+
+        <!-- ---- ARTICLE BODY ---- -->
+        <article class="flex-1 min-w-0">
+
+            <!-- Overview -->
+            <div id="intro" class="project-card mb-8" style="scroll-margin-top:100px;">
+                <div class="section-label">Portfolio Overview</div>
+                <h2 class="project-title" style="font-size:1.5rem;">What This Portfolio Demonstrates</h2>
+                <p class="project-body">
+                    This SolidWorks CAD portfolio covers 11 projects spanning aerospace assembly, power transmission, motion mechanisms, product enclosure design, and CAD-to-hardware fabrication. Each project reflects disciplined assembly methodology — interface-first mating, functional grouping, documentation-ready outputs, and validation checks.
+                </p>
+                <div class="skills-grid">
+                    <div class="skill-chip">🛩️ Aerospace Assembly</div>
+                    <div class="skill-chip">⚙️ Power Transmission</div>
+                    <div class="skill-chip">🔩 Motion Systems</div>
+                    <div class="skill-chip">📦 Product Packaging</div>
+                    <div class="skill-chip">🔧 CAD-to-Hardware</div>
+                    <div class="skill-chip">📐 Technical Drawing</div>
+                </div>
+            </div>
+
+            <!-- P1: Landing Gear -->
+            <div id="p1" class="project-card mb-8">
+                <div class="project-num">Project 01</div>
+                <h2 class="project-title">Aircraft Landing Gear Assembly</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Aerospace Assembly</span>
+                    <span class="project-meta-item">Technical Drawing</span>
+                </div>
+                <p class="project-body">
+                    A twin-wheel landing gear concept built to demonstrate aerospace-style assembly discipline. The model features a primary structural leg, support linkage, and wheel-axle integration with clear load-path visibility. Emphasis was placed on packaging clarity and dimensioned drawing communication.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Key Engineering Decisions</div>
+                    <ul>
+                        <li>Interface-first approach — wheel/axle axis treated as controlling geometry</li>
+                        <li>Structural separation between primary leg and support linkage for load-path readability</li>
+                        <li>Section-style inspection view to expose internal envelope and clearances</li>
+                        <li>Dimension-led documentation for design review</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-1.jpeg" alt="Aircraft Landing Gear Assembly — SolidWorks">
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-2.jpeg" alt="Aircraft Landing Gear Assembly — SolidWorks">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P2: Manual Gearbox -->
+            <div id="p2" class="project-card mb-8">
+                <div class="project-num">Project 02</div>
+                <h2 class="project-title">Manual Gearbox Assembly</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Power Transmission</span>
+                    <span class="project-meta-item">Multi-Stage Gear Train</span>
+                </div>
+                <p class="project-body">
+                    A full multi-stage gear train assembled along parallel shafts, with an external shift lever and selector linkage. This was an assembly-only contribution — the challenge was bringing a large part count into a coherent, rebuildable system without mate conflicts.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Assembly Strategy</div>
+                    <ul>
+                        <li>Axis-first mating — primary shaft axes used as master references</li>
+                        <li>Stack-up logic for correct gear spacing along each shaft</li>
+                        <li>Functional grouping to keep gear train and shift mechanism visually distinct</li>
+                        <li>Configuration control for internal and external presentation views</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-3.jpeg" alt="Manual Gearbox Assembly — SolidWorks">
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-4.jpeg" alt="Manual Gearbox Assembly — SolidWorks">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P3: Pump Gearbox -->
+            <div id="p3" class="project-card mb-8">
+                <div class="project-num">Project 03</div>
+                <h2 class="project-title">Mastering Pump Gearbox Assembly</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Twin-Gear Housing</span>
+                    <span class="project-meta-item">Technical Drawing</span>
+                </div>
+                <p class="project-body">
+                    A compact twin-gear pump gearbox with a bolted split housing. The key deliverable was a full A3 drawing sheet with section views (Section B-B and F-F) communicating the internal gear train, bearing placement, and cavity geometry — making the design reviewable and serviceable.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Design Decisions</div>
+                    <ul>
+                        <li>Split housing with bolted cover for practical serviceability</li>
+                        <li>Section-driven documentation to expose internal arrangement</li>
+                        <li>Interface-first assembly with shafts and bearings as controlling geometry</li>
+                        <li>Fastener layout around functional envelope for clamping and tool access</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-5.jpeg" alt="Mastering Pump Gearbox Assembly — SolidWorks">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P4: Dog Clutch -->
+            <div id="p4" class="project-card mb-8">
+                <div class="project-num">Project 04</div>
+                <h2 class="project-title">Transmission Dog Clutch Assembly</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Positive Engagement</span>
+                    <span class="project-meta-item">Exploded Views</span>
+                </div>
+                <p class="project-body">
+                    A dog clutch sub-assembly representing a positive mechanical engagement system. Unlike friction clutches, dog clutches transfer torque through mechanical interlock — so axial stack-up, engagement geometry, and retention logic must be precisely modelled. Both assembled and exploded views were produced to communicate build order.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Validation Checks</div>
+                    <ul>
+                        <li>Coaxial alignment check across all rotating elements</li>
+                        <li>Interface and clearance check — no overlap in assembled config</li>
+                        <li>Exploded sequence verified against a realistic build order</li>
+                        <li>Stack-up and retention logic with spacers, washers, and retainers</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-6.jpeg" alt="Transmission Dog Clutch Assembly — SolidWorks">
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-7.jpeg" alt="Transmission Dog Clutch Assembly — SolidWorks">
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-8.jpeg" alt="Transmission Dog Clutch Assembly — SolidWorks">
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-9.jpeg" alt="Transmission Dog Clutch Assembly — SolidWorks">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P5: Pulley-Shaft -->
+            <div id="p5" class="project-card mb-8">
+                <div class="project-num">Project 05</div>
+                <h2 class="project-title">Pulley-Shaft Support Assembly</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Interface Definition</span>
+                    <span class="project-meta-item">Exploded View</span>
+                </div>
+                <p class="project-body">
+                    A compact assembly demonstrating clean interface definition between a shaft, key, bush, and pulley. The primary output is exploded-view communication — showing keyed torque transfer, bushing/shaft relationships, and a manufacturable mounting geometry.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">What This Demonstrates</div>
+                    <ul>
+                        <li>Exploded-view communication of build order and functional interfaces</li>
+                        <li>Keyed connection and bushing/shaft relationships in the model</li>
+                        <li>Axis alignment and part orientation preserved across configurations</li>
+                        <li>Manufacturable support geometry and mounting interfaces</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-10.jpeg" alt="Pulley-Shaft Support Assembly — SolidWorks">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P6: Linear Actuator -->
+            <div id="p6" class="project-card mb-8">
+                <div class="project-num">Project 06</div>
+                <h2 class="project-title">Linear Actuator Stage Assembly</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Lead Screw Drive</span>
+                    <span class="project-meta-item">Motion System</span>
+                </div>
+                <p class="project-body">
+                    A lead screw linear stage integrating a motor mount, coupling region, guided carriage, and rail. The goal was clean motion-system integration — converting motor rotation into controlled linear travel while maintaining alignment between screw axis, guide axis, and carriage travel direction.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Design Requirements Met</div>
+                    <ul>
+                        <li>Motor rotation → controlled linear travel via lead screw</li>
+                        <li>Carriage constrained for straight-axis translation with minimal rotation</li>
+                        <li>Drive, guide, support, and carriage structured as functional groups</li>
+                        <li>Axis alignment maintained across all moving interfaces</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-11.jpeg" alt="Linear Actuator Stage Assembly — SolidWorks">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P7: Linkage Actuator -->
+            <div id="p7" class="project-card mb-8">
+                <div class="project-num">Project 07</div>
+                <h2 class="project-title">Linkage-Driven Linear Actuator</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Kinematics</span>
+                    <span class="project-meta-item">Rotary-to-Linear</span>
+                </div>
+                <p class="project-body">
+                    A compact mechanism that converts rotary input into guided linear output using a pivoted linkage cluster and a sliding output block. The challenge was maintaining exactly one degree of freedom so the mechanism behaves predictably without over-constraining.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Mechanism Requirements</div>
+                    <ul>
+                        <li>Single DOF — rotational input → stable linear displacement</li>
+                        <li>No over-constraints in the assembly mates</li>
+                        <li>Slider path defined and verified for minimal unwanted rotation</li>
+                        <li>Compact, mechanically interpretable layout</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-12.jpeg" alt="Linkage-Driven Linear Actuator — SolidWorks">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P8: Raspberry Pi -->
+            <div id="p8" class="project-card mb-8">
+                <div class="project-num">Project 08</div>
+                <h2 class="project-title">Raspberry Pi Holder & Enclosure</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Reverse Engineering</span>
+                    <span class="project-meta-item">Product Design</span>
+                </div>
+                <p class="project-body">
+                    A reverse-engineered Raspberry Pi enclosure with a split top/bottom housing, internal PCB locating features, accurate port cut-outs, and ventilation slots. The project demonstrates the ability to capture real board geometry and design a manufacturable case around it.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Design Criteria</div>
+                    <ul>
+                        <li>Board and connector envelope captured for zero-interference fit</li>
+                        <li>Port openings accurately positioned for USB, HDMI, SD, and power</li>
+                        <li>PCB secured using internal locating features — no fasteners into board</li>
+                        <li>Ventilation features balanced with structural stiffness requirements</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-13.jpeg" alt="Raspberry Pi Holder & Enclosure — SolidWorks">
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-14.jpeg" alt="Raspberry Pi Holder & Enclosure — SolidWorks">
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-15.jpeg" alt="Raspberry Pi Holder & Enclosure — SolidWorks">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P9: Spring Latch -->
+            <div id="p9" class="project-card mb-8">
+                <div class="project-num">Project 09</div>
+                <h2 class="project-title">Spring Latch Bolt — CAD to Real Product</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Product Design</span>
+                    <span class="project-meta-item">Physical Build</span>
+                </div>
+                <p class="project-body">
+                    This is the portfolio's only CAD-to-hardware project. A spring latch bolt was modelled in SolidWorks, then fabricated as a real product. The design uses a sliding bolt, compression spring, and guide structure — the final fabricated piece closely matches the CAD model, validating the design decisions made upstream.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Why This Matters</div>
+                    <ul>
+                        <li>Proves CAD-to-manufacture workflow, not just modelling ability</li>
+                        <li>Spring return action verified on the physical product</li>
+                        <li>Standard hardware used wherever possible to reduce fabrication complexity</li>
+                        <li>Mounting features and tool access preserved through design iterations</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-16.jpeg" alt="Spring Latch Bolt — CAD to Product">
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-17.jpeg" alt="Spring Latch Bolt — CAD to Product">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P10: Geneva -->
+            <div id="p10" class="project-card mb-8">
+                <div class="project-num">Project 10</div>
+                <h2 class="project-title">Geneva Mechanism</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Intermittent Motion</span>
+                    <span class="project-meta-item">Indexing Drive</span>
+                </div>
+                <p class="project-body">
+                    A Geneva mechanism that converts continuous driver rotation into step-by-step indexed rotation, with a clean dwell period between each step. This project is about geometry precision — the engagement and disengagement of the drive pin with the Geneva slots must be timed correctly to prevent interference.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">Design Requirements</div>
+                    <ul>
+                        <li>Continuous input → discrete indexed rotation of Geneva wheel</li>
+                        <li>Clear dwell period between each indexed step</li>
+                        <li>Pin-slot geometry checked for interference-free engagement</li>
+                        <li>Single DOF driven by one input rotation</li>
+                    </ul>
+                </div>
+                <div class="project-img-wrap">
+                    <img src="./img/blog-18.jpeg" alt="Geneva Mechanism — SolidWorks">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- P11: Four-Bar Linkage -->
+            <div id="p11" class="project-card mb-8">
+                <div class="project-num">Project 11</div>
+                <h2 class="project-title">Four-Bar Linkage Mechanism</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Planar Kinematics</span>
+                    <span class="project-meta-item">Motion Study</span>
+                </div>
+                <p class="project-body">
+                    A planar four-bar linkage built to demonstrate fundamental kinematic behaviour. The focus is on correct degree-of-freedom definition through joint types, and observing how link-length ratios control coupler trajectory. Motion frames were captured from the SolidWorks motion study.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">What Was Validated</div>
+                    <ul>
+                        <li>True planar mechanism — revolute joints at all link connections</li>
+                        <li>Smooth motion with no unintended DOF or mate conflicts</li>
+                        <li>Link-length relationships control coupler path as expected</li>
+                        <li>Motion study captures behaviour across full crank rotation</li>
+                    </ul>
+                </div>
+               <style>
+</style>
+
+<div class="project-video-wrap">
+    <video controls>
+        <source src="./img/blog-19.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+            </div>
+
+            <!-- Author footer card -->
+            <div class="divider"></div>
+            <div style="background:rgba(88,28,135,0.12);border:1px solid rgba(147,51,234,0.2);border-radius:16px;padding:1.75rem 2rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;">
+                <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#ec4899);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:white;flex-shrink:0;">MS</div>
+                <div style="flex:1;min-width:200px;">
+                    <p style="font-weight:700;color:#fff;font-size:1rem;margin-bottom:2px;">Md Salim Shadman</p>
+                    <p style="color:#9ca3af;font-size:0.83rem;">Industrial & Production Engineer · SolidWorks CAD Designer · JUST, Bangladesh</p>
+                </div>
+                <a href="index.html#contact" style="background:rgba(147,51,234,0.2);border:1px solid rgba(147,51,234,0.4);color:#c084fc;padding:8px 20px;border-radius:8px;font-size:0.85rem;font-weight:600;text-decoration:none;transition:all 0.3s;white-space:nowrap;" onmouseover="this.style.background='rgba(147,51,234,0.4)'" onmouseout="this.style.background='rgba(147,51,234,0.2)'">Get in Touch →</a>
+            </div>
+
+        </article>
+    </div>
+</div>
+
+<!-- ===== FOOTER (identical to portfolio) ===== -->
+<footer class="bg-purple-950 bg-opacity-30 py-8 border-t border-purple-900 border-opacity-20">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <div class="social-links">
+            <a href="https://www.instagram.com/extro_nish/" target="_blank" class="social-icon instagram" title="Instagram">
+                <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/Shadman.Nishat22/" target="_blank" class="social-icon facebook" title="Facebook">
+                <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://linkedin.com/in/shadmannishat" target="_blank" class="social-icon linkedin" title="LinkedIn">
+                <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+        </div>
+        <p class="text-gray-400 mt-6">&copy; 2026 Md Salim Shadman. All rights reserved.</p>
+        <p class="text-purple-400 mt-2">Industrial Engineer | IELTS Instructor | Researcher</p>
+    </div>
+</footer>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/8801722335706" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+    <svg fill="currentColor" viewBox="0 0 24 24" width="32" height="32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- Back to top -->
+<div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24"><path d="M12 19V6M5 12l7-7 7 7"/></svg>
+</div>
+
+<script>
+    // Nav functions
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const hamburger = document.getElementById('hamburger');
+        menu.classList.toggle('show');
+        hamburger.classList.toggle('active');
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        const isLight = body.classList.toggle('light-mode');
+        ['theme-icon-sun','theme-icon-moon','theme-icon-sun-m','theme-icon-moon-m'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (id.includes('sun')) el.style.display = isLight ? 'block' : 'none';
+            else el.style.display = isLight ? 'none' : 'block';
+        });
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    }
+
+    window.addEventListener('load', () => {
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            ['theme-icon-sun','theme-icon-sun-m'].forEach(id => { const el = document.getElementById(id); if(el) el.style.display='block'; });
+            ['theme-icon-moon','theme-icon-moon-m'].forEach(id => { const el = document.getElementById(id); if(el) el.style.display='none'; });
+        }
+    });
+
+    // Reading progress
+    window.addEventListener('scroll', () => {
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        const prog = (window.scrollY / docH) * 100;
+        document.getElementById('reading-progress').style.width = prog + '%';
+
+        // Back to top
+        const bt = document.getElementById('backTop');
+        if (window.scrollY > 400) bt.classList.add('visible');
+        else bt.classList.remove('visible');
+
+        // TOC active
+        const sections = ['intro','p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11'];
+        let current = '';
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && window.scrollY >= el.offsetTop - 120) current = id;
+        });
+        document.querySelectorAll('.toc-item').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+        });
+    });
+
+    // Smooth scroll for TOC
+    document.querySelectorAll('.toc-item').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+    // Nav active link on scroll
+const navSections = ['home','about','experience','skills','research','portfolio','contact'];
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    navSections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 100) current = id;
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active-nav');
+        const href = link.getAttribute('href');
+        if (href === '#' + current || href === 'index.html#' + current) {
+            link.classList.add('active-nav');
+        }
+    });
+});
+</script>
+</body>
+</html>
