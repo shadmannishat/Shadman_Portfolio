@@ -1394,12 +1394,16 @@ Achieved a student rating of 4.98/5, the highest across all 10MS EC branches, hi
         // Nav active link on scroll
 const navSections = ['home','about','experience','education','skills','research','portfolio','contact'];
 
-window.addEventListener('scroll', () => {
+function updateActiveNav() {
     let current = '';
     navSections.forEach(id => {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 100) current = id;
     });
+    // At the very bottom of the page, highlight the last section (Contact)
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 5) {
+        current = navSections[navSections.length - 1];
+    }
 
     document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.remove('active-nav');
@@ -1408,7 +1412,9 @@ window.addEventListener('scroll', () => {
             link.classList.add('active-nav');
         }
     });
-});
+}
+window.addEventListener('scroll', updateActiveNav);
+window.addEventListener('load', updateActiveNav);
     </script>
 </body>
 </html>
