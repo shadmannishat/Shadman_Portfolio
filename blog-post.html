@@ -71,6 +71,7 @@
         .social-links { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
         .social-icon { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; border: 2px solid; }
         .social-icon:hover { transform: translateY(-5px); }
+        .social-icon, body.light-mode .social-icon { color: #ffffff !important; }
         .instagram { background: linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888); border-color:#dc2743; }
         .facebook { background:#1877F2; border-color:#1877F2; }
         .linkedin { background:#0A66C2; border-color:#0A66C2; }
@@ -275,6 +276,24 @@
         display: block;
     }
 
+        /* ===== Gallery (multi-view projects) ===== */
+        .project-gallery { display: grid; gap: 12px; margin-top: 1.25rem; }
+        .project-gallery.cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .project-gallery.cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .gallery-item { margin: 0; border-radius: 12px; overflow: hidden; border: 1px solid rgba(147,51,234,0.25); background: linear-gradient(180deg,#f4f5f9 0%,#e3e6ee 100%); cursor: zoom-in; position: relative; }
+        .gallery-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; display: block; transition: transform 0.4s ease; }
+        .gallery-item:hover img { transform: scale(1.04); }
+        .gallery-item figcaption { position: absolute; left: 8px; bottom: 8px; background: rgba(17,7,30,0.82); color: #e9d5ff; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; padding: 4px 10px; border-radius: 999px; }
+        .gallery-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9333ea; margin-top: 1.5rem; }
+        @media (max-width: 768px) { .project-gallery.cols-4 { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .project-gallery.cols-2 { grid-template-columns: 1fr; } }
+        /* Lightbox */
+        .lightbox { position: fixed; inset: 0; background: rgba(5,0,12,0.92); display: none; align-items: center; justify-content: center; z-index: 200; padding: 24px; cursor: zoom-out; }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 100%; max-height: 85vh; border-radius: 12px; background: #eef0f5; }
+        .lightbox-cap { position: absolute; bottom: 24px; left: 0; right: 0; text-align: center; color: #e9d5ff; font-size: 0.9rem; }
+        .lightbox-close { position: absolute; top: 18px; right: 22px; color: #fff; font-size: 2rem; line-height: 1; background: none; border: none; cursor: pointer; }
+
         /* Skills grid */
         .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 0.75rem; }
         .skill-chip {
@@ -419,7 +438,7 @@
             </div>
             <div class="meta-item">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                11 Projects
+                12 Projects
             </div>
             <div class="meta-item">
                 <!-- Author avatar -->
@@ -450,6 +469,7 @@
                 <a href="#p9" class="toc-item"><span class="toc-num">09</span> Spring Latch Bolt</a>
                 <a href="#p10" class="toc-item"><span class="toc-num">10</span> Geneva Mechanism</a>
                 <a href="#p11" class="toc-item"><span class="toc-num">11</span> Four-Bar Linkage</a>
+                <a href="#p12" class="toc-item"><span class="toc-num">12</span> Horizontal Milling Machine</a>
             </div>
         </aside>
 
@@ -461,7 +481,7 @@
                 <div class="section-label">Portfolio Overview</div>
                 <h2 class="project-title" style="font-size:1.5rem;">What This Portfolio Demonstrates</h2>
                 <p class="project-body">
-                    This SolidWorks CAD portfolio covers 11 projects spanning aerospace assembly, power transmission, motion mechanisms, product enclosure design, and CAD-to-hardware fabrication. Each project reflects disciplined assembly methodology — interface-first mating, functional grouping, documentation-ready outputs, and validation checks.
+                    This SolidWorks CAD portfolio covers 12 projects spanning machine tool design, aerospace assembly, power transmission, motion mechanisms, product enclosure design, and CAD-to-hardware fabrication. Each project reflects disciplined assembly methodology — interface-first mating, functional grouping, documentation-ready outputs, and validation checks.
                 </p>
                 <div class="skills-grid">
                     <div class="skill-chip">🛩️ Aerospace Assembly</div>
@@ -809,6 +829,46 @@
 </div>
             </div>
 
+            <div class="divider"></div>
+
+            <!-- P12: Horizontal Milling Machine -->
+            <div id="p12" class="project-card mb-8">
+                <div class="project-num">Project 12</div>
+                <h2 class="project-title">Horizontal Milling Machine</h2>
+                <div class="project-meta">
+                    <span class="project-meta-item">SolidWorks</span>
+                    <span class="project-meta-item">Machine Tool Design</span>
+                    <span class="project-meta-item">Full Assembly</span>
+                    <span class="project-meta-item">Drive Train</span>
+                </div>
+                <p class="project-body">
+                    A complete column-and-knee horizontal milling machine modelled as one full assembly. The build covers every major subsystem of a real machine tool: the base and column, the overarm with its arbor support, the horizontal cutter arbor, a T-slot worktable on a saddle and knee, and the drive train housed inside the column. A cutaway view exposes the internal motor, belt drive and gear train.
+                </p>
+                <div class="highlight-box">
+                    <div class="highlight-box-title">What the Assembly Covers</div>
+                    <ul>
+                        <li>Column-and-knee structure with an overarm and arbor support bracket carrying the horizontal cutter arbor</li>
+                        <li>T-slot worktable with leadscrew feed and handwheels for longitudinal, cross and vertical (knee) movement</li>
+                        <li>Electric motor in the column driving a multi-groove V-belt and stepped pulley set</li>
+                        <li>Gear-train speed box at the top of the column transmitting power to the spindle</li>
+                        <li>Front, rear, side and top views to communicate layout and clearances</li>
+                    </ul>
+                </div>
+
+                <div class="project-gallery cols-2">
+                    <figure class="gallery-item" onclick="openLightbox(this)"><img src="./img/hmm-cutaway.jpg" alt="Horizontal Milling Machine, cutaway view showing motor, belts and gear train" loading="lazy"><figcaption>Cutaway · internal drive</figcaption></figure>
+                    <figure class="gallery-item" onclick="openLightbox(this)"><img src="./img/hmm-iso.jpg" alt="Horizontal Milling Machine, isometric view" loading="lazy"><figcaption>Isometric view</figcaption></figure>
+                </div>
+
+                <div class="gallery-label">Orthographic Views</div>
+                <div class="project-gallery cols-4">
+                    <figure class="gallery-item" onclick="openLightbox(this)"><img src="./img/hmm-front.jpg" alt="Horizontal Milling Machine, front view" loading="lazy"><figcaption>Front</figcaption></figure>
+                    <figure class="gallery-item" onclick="openLightbox(this)"><img src="./img/hmm-rear.jpg" alt="Horizontal Milling Machine, rear view with belt drive" loading="lazy"><figcaption>Rear</figcaption></figure>
+                    <figure class="gallery-item" onclick="openLightbox(this)"><img src="./img/hmm-side.jpg" alt="Horizontal Milling Machine, side view" loading="lazy"><figcaption>Side</figcaption></figure>
+                    <figure class="gallery-item" onclick="openLightbox(this)"><img src="./img/hmm-top.jpg" alt="Horizontal Milling Machine, top view" loading="lazy"><figcaption>Top</figcaption></figure>
+                </div>
+            </div>
+
             <!-- Author footer card -->
             <div class="divider"></div>
             <div style="background:rgba(88,28,135,0.12);border:1px solid rgba(147,51,234,0.2);border-radius:16px;padding:1.75rem 2rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;">
@@ -839,7 +899,7 @@
             </a>
         </div>
         <p class="text-gray-400 mt-6">&copy; 2026 Md Salim Shadman. All rights reserved.</p>
-        <p class="text-purple-400 mt-2">Industrial Engineer | IELTS Instructor | Researcher</p>
+        <p class="text-purple-400 mt-2">IELTS Educator | Industrial Engineer | Researcher</p>
     </div>
 </footer>
 
@@ -847,6 +907,24 @@
 <a href="https://wa.me/8801722335706" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
     <svg fill="currentColor" viewBox="0 0 24 24" width="32" height="32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-cap" id="lightbox-cap"></div>
+</div>
+<script>
+    function openLightbox(fig) {
+        const img = fig.querySelector('img');
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox-img').alt = img.alt;
+        document.getElementById('lightbox-cap').textContent = fig.querySelector('figcaption').textContent;
+        document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
 
 <!-- Back to top -->
 <div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
@@ -894,7 +972,7 @@
         else bt.classList.remove('visible');
 
         // TOC active
-        const sections = ['intro','p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11'];
+        const sections = ['intro','p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p12'];
         let current = '';
         sections.forEach(id => {
             const el = document.getElementById(id);
