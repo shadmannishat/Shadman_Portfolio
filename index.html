@@ -206,6 +206,20 @@
         .gallery-item figcaption { padding:10px 12px; font-size:0.8rem; color:#d1d5db; line-height:1.35; }
         body.light-mode .gallery-item figcaption { color:#4a4a4a; }
         @media (max-width:640px) { .gallery-item { width:78vw; } }
+        .pile { display:flex; flex-direction:column; align-items:center; }
+        .pile-stage { position:relative; width:100%; max-width:440px; height:360px; touch-action:pan-y; user-select:none; }
+        .pile-card { position:absolute; inset:0; margin:auto; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#f4f4f6; border-radius:16px; border:1px solid rgba(147,51,234,0.35); box-shadow:0 10px 30px rgba(0,0,0,0.45); overflow:hidden; cursor:grab; transition:transform .35s ease, opacity .35s ease; will-change:transform; }
+        .pile-card img { max-width:100%; max-height:100%; object-fit:contain; pointer-events:none; }
+        .pile-card.dragging { transition:none; cursor:grabbing; }
+        .pile-zoom { position:absolute; top:10px; right:10px; z-index:200; width:38px; height:38px; border-radius:10px; background:rgba(17,7,30,0.8); color:#e9d5ff; display:flex; align-items:center; justify-content:center; border:1px solid rgba(147,51,234,0.5); }
+        .pile-cap { margin-top:18px; min-height:2.6em; max-width:440px; text-align:center; color:#d1d5db; font-size:0.9rem; line-height:1.35; }
+        .pile-nav { display:flex; align-items:center; gap:16px; margin-top:6px; }
+        .pile-nav button { font-size:0.8rem; font-weight:600; color:#c084fc; border:1px solid rgba(147,51,234,0.5); padding:6px 14px; border-radius:8px; }
+        .pile-count { font-size:0.8rem; color:#9ca3af; min-width:52px; text-align:center; }
+        body.light-mode .pile-cap { color:#4a4a4a; }
+        @media (max-width:640px) { .pile-stage { height:280px; max-width:calc(100vw - 64px); } }
+        #more-activities { overflow-x:hidden; }
+        @media (prefers-reduced-motion: reduce) { .pile-card { transition:none; } }
         .lightbox { position:fixed; inset:0; background:rgba(5,0,12,0.92); display:none; align-items:center; justify-content:center; z-index:200; padding:24px; cursor:zoom-out; }
         .lightbox.open { display:flex; }
         .lightbox img { max-width:100%; max-height:85vh; border-radius:12px; }
@@ -1694,108 +1708,57 @@ Achieved a student rating of 4.98/5, the highest across all 10MS EC branches, hi
     <section id="more-activities" class="py-20 bg-purple-950 bg-opacity-10">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">More <span class="gradient-text">Extracurricular Activities</span></h2>
-            <p class="text-center text-gray-400 mb-10">Certificates and event posters · scroll sideways, tap to enlarge</p>
-            <div class="gallery-strip">
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-iycm-ambassador.jpg" alt="Campus Ambassador, International Youth Change Maker (2021–22)" loading="lazy">
-                    <figcaption>Campus Ambassador, International Youth Change Maker (2021–22)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-english-olympiad.jpg" alt="Campus Ambassador, English Olympiad Selection Round Season 3" loading="lazy">
-                    <figcaption>Campus Ambassador, English Olympiad Selection Round Season 3</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-campus-news-live.jpg" alt="Host, "Gane Gane Bartalap" live show – Campus News (Jul 2020)" loading="lazy">
-                    <figcaption>Host, "Gane Gane Bartalap" live show – Campus News (Jul 2020)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-school-of-inspiration.jpg" alt="Campus Ambassador, School of Inspiration" loading="lazy">
-                    <figcaption>Campus Ambassador, School of Inspiration</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-rotary-scholarship-webinar.jpg" alt="Joint Secretary, host club – Webinar on Rotary Scholarship (Aug 2020)" loading="lazy">
-                    <figcaption>Joint Secretary, host club – Webinar on Rotary Scholarship (Aug 2020)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-ptak-ambassador.jpg" alt="Campus Ambassador, 2021 ISCEA Ptak Prize" loading="lazy">
-                    <figcaption>Campus Ambassador, 2021 ISCEA Ptak Prize</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-we-are-the-changemakers.jpg" alt=""We Are the Changemakers" Stay Home, Stay Safe campaign – Department of IPE, JUST" loading="lazy">
-                    <figcaption>"We Are the Changemakers" Stay Home, Stay Safe campaign – Department of IPE, JUST</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-smart-talk-ep8.jpg" alt="Speaker, Smart Talk Episode 8 – Smart Career (Jul 2021)" loading="lazy">
-                    <figcaption>Speaker, Smart Talk Episode 8 – Smart Career (Jul 2021)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-mawbiz-experts.jpg" alt="Expert trainer, Professional Training on Photoshop – MAWbiz My Mentor" loading="lazy">
-                    <figcaption>Expert trainer, Professional Training on Photoshop – MAWbiz My Mentor</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-ysse-interview.jpg" alt="Host, "The Journey of YSSE" live interview – Learning Bangladesh" loading="lazy">
-                    <figcaption>Host, "The Journey of YSSE" live interview – Learning Bangladesh</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-aq-export-interview.jpg" alt="Host, "The Journey of AQ Export" live interview – Learning Bangladesh" loading="lazy">
-                    <figcaption>Host, "The Journey of AQ Export" live interview – Learning Bangladesh</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-job-market-interview.jpg" alt="Host, "Job Market & Post-Covid Challenges" live interview – Learning Bangladesh" loading="lazy">
-                    <figcaption>Host, "Job Market & Post-Covid Challenges" live interview – Learning Bangladesh</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-project-we.jpg" alt="Management Executive, Project WE" loading="lazy">
-                    <figcaption>Management Executive, Project WE</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-talk-digital.jpg" alt="Campus Executive, Talk Digital (2020)" loading="lazy">
-                    <figcaption>Campus Executive, Talk Digital (2020)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-amar-ischool.jpg" alt="Campus Ambassador, Amar iSchool" loading="lazy">
-                    <figcaption>Campus Ambassador, Amar iSchool</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/eduko-pathways-sdp-2025.jpg" alt="Student Development Program, Eduko Pathways × Brunel Pathway College & Navitas (Jul 2025)" loading="lazy">
-                    <figcaption>Student Development Program, Eduko Pathways × Brunel Pathway College &amp; Navitas (Jul 2025)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-corporate-talks.jpg" alt="Speaker, Corporate Talks (AIBA Business Club, Sylhet)" loading="lazy">
-                    <figcaption>Speaker, Corporate Talks (AIBA Business Club, Sylhet)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-screen-addiction.jpg" alt="Host, "Dealing with Screen Addiction" webinar" loading="lazy">
-                    <figcaption>Host, "Dealing with Screen Addiction" webinar</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-artisteller-inauguration.jpg" alt="Host, Artisteller logo unveiling & inauguration (Mar 2021)" loading="lazy">
-                    <figcaption>Host, Artisteller logo unveiling & inauguration (Mar 2021)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-youth-ending-hunger.jpg" alt="Publicity & Publication Secretary, Youth Ending Hunger – JUST Unit" loading="lazy">
-                    <figcaption>Publicity & Publication Secretary, Youth Ending Hunger – JUST Unit</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-ambassador-of-the-month.jpg" alt="Campus Ambassador of the Month, Learning Bangladesh (Dec 2020)" loading="lazy">
-                    <figcaption>Campus Ambassador of the Month, Learning Bangladesh (Dec 2020)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/poster-social-media-addiction.jpg" alt="Panellist, "Social Media Addiction" – Studio DC Live (Oct 2020)" loading="lazy">
-                    <figcaption>Panellist, "Social Media Addiction" – Studio DC Live (Oct 2020)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/learning-bangladesh-ambassador.jpg" alt="Campus Ambassador Programme, Learning Bangladesh (2020–21)" loading="lazy">
-                    <figcaption>Campus Ambassador Programme, Learning Bangladesh (2020–21)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/smartifier-ambassador.jpg" alt="Campus Ambassador, Smartifier Training & Consultation (2021)" loading="lazy">
-                    <figcaption>Campus Ambassador, Smartifier Training & Consultation (2021)</figcaption>
-                </figure>
-                <figure class="gallery-item" onclick="openLightbox(this)">
-                    <img src="./img/gallery/campus-leader-summit-2020.jpg" alt="Volunteer, Campus Leader Summit (Sep 2020)" loading="lazy">
-                    <figcaption>Volunteer, Campus Leader Summit (Sep 2020)</figcaption>
-                </figure>
+            <p class="text-center text-gray-400 mb-10">Swipe left or right, or tap, to flip through the pile · ⤢ to view full size</p>
+            <div class="grid md:grid-cols-2 gap-12 md:gap-10">
+                <div class="pile" data-pile>
+                    <h3 class="text-2xl font-bold text-purple-400 text-center mb-6">Certificates</h3>
+                    <div class="pile-stage">
+                        <div class="pile-card" data-cap="Student Development Program, Eduko Pathways × Brunel Pathway College &amp; Navitas (Jul 2025)"><img data-src="./img/gallery/eduko-pathways-sdp-2025.jpg" alt="Student Development Program, Eduko Pathways × Brunel Pathway College &amp; Navitas (Jul 2025)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Volunteer, Campus Leader Summit (Sep 2020)"><img data-src="./img/gallery/campus-leader-summit-2020.jpg" alt="Volunteer, Campus Leader Summit (Sep 2020)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Campus Ambassador Programme, Learning Bangladesh (2020–21)"><img data-src="./img/gallery/learning-bangladesh-ambassador.jpg" alt="Campus Ambassador Programme, Learning Bangladesh (2020–21)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Campus Ambassador, Smartifier Training &amp; Consultation (2021)"><img data-src="./img/gallery/smartifier-ambassador.jpg" alt="Campus Ambassador, Smartifier Training &amp; Consultation (2021)" draggable="false"></div>
+                        <button class="pile-zoom" type="button" aria-label="View full size" title="View full size"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></button>
+                    </div>
+                    <p class="pile-cap"></p>
+                    <div class="pile-nav">
+                        <button class="pile-back" type="button" aria-label="Previous">&#8634; Back</button>
+                        <span class="pile-count"></span>
+                        <button class="pile-next" type="button" aria-label="Next">Next &#8594;</button>
+                    </div>
+                </div>
+                <div class="pile" data-pile>
+                    <h3 class="text-2xl font-bold text-purple-400 text-center mb-6">Posters</h3>
+                    <div class="pile-stage">
+                        <div class="pile-card" data-cap="Speaker, Corporate Talks (AIBA Business Club, Sylhet)"><img data-src="./img/gallery/poster-corporate-talks.jpg" alt="Speaker, Corporate Talks (AIBA Business Club, Sylhet)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Speaker, Smart Talk Episode 8 – Smart Career (Jul 2021)"><img data-src="./img/gallery/poster-smart-talk-ep8.jpg" alt="Speaker, Smart Talk Episode 8 – Smart Career (Jul 2021)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Expert trainer, Professional Training on Photoshop – MAWbiz My Mentor"><img data-src="./img/gallery/poster-mawbiz-experts.jpg" alt="Expert trainer, Professional Training on Photoshop – MAWbiz My Mentor" draggable="false"></div>
+                        <div class="pile-card" data-cap="Panellist, &quot;Social Media Addiction&quot; – Studio DC Live (Oct 2020)"><img data-src="./img/gallery/poster-social-media-addiction.jpg" alt="Panellist, &quot;Social Media Addiction&quot; – Studio DC Live (Oct 2020)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Joint Secretary, host club – Webinar on Rotary Scholarship (Aug 2020)"><img data-src="./img/gallery/poster-rotary-scholarship-webinar.jpg" alt="Joint Secretary, host club – Webinar on Rotary Scholarship (Aug 2020)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Host, &quot;The Journey of YSSE&quot; live interview – Learning Bangladesh"><img data-src="./img/gallery/poster-ysse-interview.jpg" alt="Host, &quot;The Journey of YSSE&quot; live interview – Learning Bangladesh" draggable="false"></div>
+                        <div class="pile-card" data-cap="Host, &quot;The Journey of AQ Export&quot; live interview – Learning Bangladesh"><img data-src="./img/gallery/poster-aq-export-interview.jpg" alt="Host, &quot;The Journey of AQ Export&quot; live interview – Learning Bangladesh" draggable="false"></div>
+                        <div class="pile-card" data-cap="Host, &quot;Job Market &amp; Post-Covid Challenges&quot; live interview – Learning Bangladesh"><img data-src="./img/gallery/poster-job-market-interview.jpg" alt="Host, &quot;Job Market &amp; Post-Covid Challenges&quot; live interview – Learning Bangladesh" draggable="false"></div>
+                        <div class="pile-card" data-cap="Host, &quot;Dealing with Screen Addiction&quot; webinar"><img data-src="./img/gallery/poster-screen-addiction.jpg" alt="Host, &quot;Dealing with Screen Addiction&quot; webinar" draggable="false"></div>
+                        <div class="pile-card" data-cap="Host, &quot;Gane Gane Bartalap&quot; live show – Campus News (Jul 2020)"><img data-src="./img/gallery/poster-campus-news-live.jpg" alt="Host, &quot;Gane Gane Bartalap&quot; live show – Campus News (Jul 2020)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Host, Artisteller logo unveiling &amp; inauguration (Mar 2021)"><img data-src="./img/gallery/poster-artisteller-inauguration.jpg" alt="Host, Artisteller logo unveiling &amp; inauguration (Mar 2021)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Publicity &amp; Publication Secretary, Youth Ending Hunger – JUST Unit"><img data-src="./img/gallery/poster-youth-ending-hunger.jpg" alt="Publicity &amp; Publication Secretary, Youth Ending Hunger – JUST Unit" draggable="false"></div>
+                        <div class="pile-card" data-cap="Management Executive, Project WE"><img data-src="./img/gallery/poster-project-we.jpg" alt="Management Executive, Project WE" draggable="false"></div>
+                        <div class="pile-card" data-cap="&quot;We Are the Changemakers&quot; Stay Home, Stay Safe campaign – Department of IPE, JUST"><img data-src="./img/gallery/poster-we-are-the-changemakers.jpg" alt="&quot;We Are the Changemakers&quot; Stay Home, Stay Safe campaign – Department of IPE, JUST" draggable="false"></div>
+                        <div class="pile-card" data-cap="Campus Ambassador of the Month, Learning Bangladesh (Dec 2020)"><img data-src="./img/gallery/poster-ambassador-of-the-month.jpg" alt="Campus Ambassador of the Month, Learning Bangladesh (Dec 2020)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Campus Ambassador, 2021 ISCEA Ptak Prize"><img data-src="./img/gallery/poster-ptak-ambassador.jpg" alt="Campus Ambassador, 2021 ISCEA Ptak Prize" draggable="false"></div>
+                        <div class="pile-card" data-cap="Campus Ambassador, International Youth Change Maker (2021–22)"><img data-src="./img/gallery/poster-iycm-ambassador.jpg" alt="Campus Ambassador, International Youth Change Maker (2021–22)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Campus Executive, Talk Digital (2020)"><img data-src="./img/gallery/poster-talk-digital.jpg" alt="Campus Executive, Talk Digital (2020)" draggable="false"></div>
+                        <div class="pile-card" data-cap="Campus Ambassador, English Olympiad Selection Round Season 3"><img data-src="./img/gallery/poster-english-olympiad.jpg" alt="Campus Ambassador, English Olympiad Selection Round Season 3" draggable="false"></div>
+                        <div class="pile-card" data-cap="Campus Ambassador, Amar iSchool"><img data-src="./img/gallery/poster-amar-ischool.jpg" alt="Campus Ambassador, Amar iSchool" draggable="false"></div>
+                        <div class="pile-card" data-cap="Campus Ambassador, School of Inspiration"><img data-src="./img/gallery/poster-school-of-inspiration.jpg" alt="Campus Ambassador, School of Inspiration" draggable="false"></div>
+                        <button class="pile-zoom" type="button" aria-label="View full size" title="View full size"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></button>
+                    </div>
+                    <p class="pile-cap"></p>
+                    <div class="pile-nav">
+                        <button class="pile-back" type="button" aria-label="Previous">&#8634; Back</button>
+                        <span class="pile-count"></span>
+                        <button class="pile-next" type="button" aria-label="Next">Next &#8594;</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2034,6 +1997,48 @@ window.addEventListener('load', updateActiveNav);
         function openLightbox(fig){const i=fig.querySelector('img');document.getElementById('lightbox-img').src=i.src;document.getElementById('lightbox-img').alt=i.alt;document.getElementById('lightbox-cap').textContent=fig.querySelector('figcaption').textContent;document.getElementById('lightbox').classList.add('open');}
         function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
         document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+
+        (function(){
+          const tilt=[0,-4,3,-2,2];
+          document.querySelectorAll('[data-pile]').forEach(pile=>{
+            const stage=pile.querySelector('.pile-stage');
+            let cards=[...stage.querySelectorAll('.pile-card')];
+            const total=cards.length; let pos=0; let busy=false;
+            const cap=pile.querySelector('.pile-cap'), cnt=pile.querySelector('.pile-count');
+            function layout(){
+              cards.forEach((c,k)=>{
+                if(k<4){ const i=c.querySelector('img'); if(!i.src) i.src=i.dataset.src; }
+                c.style.zIndex=100-k;
+                c.style.opacity=k<4?1:0; c.style.pointerEvents=k===0?'auto':'none';
+                c.style.transform=k<5?`translate(${k*5}px,${k*5}px) rotate(${tilt[k]}deg)`:'translate(15px,15px)';
+              });
+              cap.textContent=cards[0].dataset.cap; cnt.textContent=`${pos+1} / ${total}`;
+            }
+            function fly(dir){
+              if(busy) return; busy=true;
+              const top=cards[0]; top.classList.remove('dragging');
+              top.style.transform=`translate(${dir*120}%, -20px) rotate(${dir*18}deg)`; top.style.opacity=0;
+              setTimeout(()=>{ cards.push(cards.shift()); pos=(pos+1)%total; layout(); busy=false; },300);
+            }
+            function back(){
+              if(busy) return; cards.unshift(cards.pop()); pos=(pos-1+total)%total; layout();
+            }
+            let sx=0, dx=0, down=false;
+            stage.addEventListener('pointerdown',e=>{ if(e.target.closest('.pile-zoom')) return; down=true; sx=e.clientX; dx=0; cards[0].classList.add('dragging'); stage.setPointerCapture(e.pointerId); });
+            stage.addEventListener('pointermove',e=>{ if(!down) return; dx=e.clientX-sx; cards[0].style.transform=`translate(${dx}px,0) rotate(${dx/18}deg)`; });
+            const end=()=>{ if(!down) return; down=false;
+              if(Math.abs(dx)>70) fly(dx>0?1:-1);
+              else if(Math.abs(dx)<6) fly(1);
+              else { cards[0].classList.remove('dragging'); layout(); } };
+            stage.addEventListener('pointerup',end); stage.addEventListener('pointercancel',end);
+            pile.querySelector('.pile-next').addEventListener('click',()=>fly(-1));
+            pile.querySelector('.pile-back').addEventListener('click',back);
+            pile.querySelector('.pile-zoom').addEventListener('click',()=>{ const i=cards[0].querySelector('img');
+              document.getElementById('lightbox-img').src=i.src; document.getElementById('lightbox-img').alt=i.alt;
+              document.getElementById('lightbox-cap').textContent=cards[0].dataset.cap; document.getElementById('lightbox').classList.add('open'); });
+            layout();
+          });
+        })();
 </script>
 </body>
 </html>
