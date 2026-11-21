@@ -211,7 +211,11 @@
         .lightbox img { max-width:100%; max-height:85vh; border-radius:12px; }
         .lightbox-cap { position:absolute; bottom:24px; left:16px; right:16px; text-align:center; color:#e9d5ff; font-size:0.9rem; }
         .lightbox-close { position:absolute; top:18px; right:22px; color:#fff; font-size:2rem; background:none; border:none; cursor:pointer; }
-        @media (min-width: 768px) { [data-progression] { border-left: none !important; padding-left: 0 !important; } }
+        @media (min-width: 768px) {
+            [data-progression] { border-left: none !important; padding-left: 0 !important; }
+            [data-progression] > div { position: relative; }
+            [data-progression] > div:not(:last-child)::after { content: ''; position: absolute; top: 6px; left: 22px; width: calc(100% - 30px + 2.5rem); height: 2px; background: rgba(147,51,234,0.55); border-radius: 1px; }
+        }
         .social-icon, body.light-mode .social-icon { color: #ffffff !important; }
 
         .instagram {
