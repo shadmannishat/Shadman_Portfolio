@@ -199,6 +199,18 @@
         }
 
         .social-icon:hover { transform: translateY(-5px); }
+        .gallery-strip { display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:12px; -webkit-overflow-scrolling:touch; }
+        .gallery-strip::-webkit-scrollbar { height:8px; } .gallery-strip::-webkit-scrollbar-thumb { background:rgba(147,51,234,0.5); border-radius:4px; }
+        .gallery-item { flex:0 0 auto; width:300px; margin:0; scroll-snap-align:start; cursor:zoom-in; background:rgba(88,28,135,0.2); border:1px solid rgba(107,33,168,0.3); border-radius:12px; overflow:hidden; }
+        .gallery-item img { width:100%; height:220px; object-fit:contain; background:#f4f4f6; display:block; }
+        .gallery-item figcaption { padding:10px 12px; font-size:0.8rem; color:#d1d5db; line-height:1.35; }
+        body.light-mode .gallery-item figcaption { color:#4a4a4a; }
+        @media (max-width:640px) { .gallery-item { width:78vw; } }
+        .lightbox { position:fixed; inset:0; background:rgba(5,0,12,0.92); display:none; align-items:center; justify-content:center; z-index:200; padding:24px; cursor:zoom-out; }
+        .lightbox.open { display:flex; }
+        .lightbox img { max-width:100%; max-height:85vh; border-radius:12px; }
+        .lightbox-cap { position:absolute; bottom:24px; left:16px; right:16px; text-align:center; color:#e9d5ff; font-size:0.9rem; }
+        .lightbox-close { position:absolute; top:18px; right:22px; color:#fff; font-size:2rem; background:none; border:none; cursor:pointer; }
         @media (min-width: 768px) { [data-progression] { border-left: none !important; padding-left: 0 !important; } }
         .social-icon, body.light-mode .social-icon { color: #ffffff !important; }
 
@@ -816,10 +828,11 @@ work, strengthening real-world modelling discipline and client-focused problem s
                         Preview
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
-                    <div class="preview-box hidden mt-3" style="max-width:720px;">
-                        <div class="grid grid-cols-2 gap-3">
+                    <div class="preview-box hidden mt-3" style="max-width:960px;">
+                        <div class="grid grid-cols-3 gap-3 items-start">
                             <img src="./img/certs/cert-star-teacher-1.jpg" alt="Star Teacher Award 2026 – Highest Students' Success, 10 Minute School English Centre" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
                             <img src="./img/certs/cert-star-teacher-2.jpg" alt="Star Teacher Award 2026 – Highest Rating, 10 Minute School English Centre" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
+                            <img src="./img/certs/cert-10ms-recognition.jpg" alt="10 Minute School Certificate of Recognition" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
                         </div>
                     </div>
                 </div>
@@ -836,6 +849,18 @@ work, strengthening real-world modelling discipline and client-focused problem s
                         <li class="timeline-item">Supported 4 training sessions on productivity improvement and compliance, reaching over 50+ employees</li>
                         <li class="timeline-item">Streamlined documentation and reporting, cutting turnaround time for service requests by 20%</li>
                     </ul>
+                    <button
+                        onclick="this.closest('.bg-purple-900').querySelector('.preview-box').classList.toggle('hidden')"
+                        class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-purple-400 border border-purple-700 border-opacity-50 px-4 py-2 rounded-lg hover:bg-purple-800 hover:bg-opacity-30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        Preview
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="preview-box hidden mt-3" style="max-width:640px;">
+                        <div class="grid grid-cols-1 gap-3 items-start">
+                            <img src="./img/certs/cert-ific-induction.jpg" alt="IFIC Bank induction programme certificate" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
+                        </div>
+                    </div>
                 </div>
                 <div class="card-hover bg-purple-900 bg-opacity-20 p-8 rounded-xl border border-purple-800 border-opacity-30">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
@@ -863,6 +888,19 @@ work, strengthening real-world modelling discipline and client-focused problem s
                         <li class="timeline-item">Conducted market research on 10+ industries, directly influencing proposal success rates and client retention</li>
                         <li class="timeline-item">Collaborated with marketing and design teams to boost social engagement and customer response rates by 30%</li>
                     </ul>
+                    <button
+                        onclick="this.closest('.bg-purple-900').querySelector('.preview-box').classList.toggle('hidden')"
+                        class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-purple-400 border border-purple-700 border-opacity-50 px-4 py-2 rounded-lg hover:bg-purple-800 hover:bg-opacity-30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        Preview
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="preview-box hidden mt-3" style="max-width:900px;">
+                        <div class="grid grid-cols-2 gap-3 items-start">
+                            <img src="./img/certs/cert-mawbiz-internship.jpg" alt="MAWbiz internship certificate" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
+                            <img src="./img/certs/cert-mawbiz-photoshop-training.jpg" alt="MAWbiz Photoshop training poster" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
+                        </div>
+                    </div>
                 </div>
                 <div class="card-hover bg-purple-900 bg-opacity-20 p-8 rounded-xl border border-purple-800 border-opacity-30">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
@@ -909,8 +947,11 @@ work, strengthening real-world modelling discipline and client-focused problem s
                         Preview
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
-                    <div class="preview-box hidden mt-3 overflow-hidden rounded-xl border border-purple-800 border-opacity-40" style="max-width:640px;">
-                        <img src="./img/certs/cert-psycure.jpg" alt="Certificate from Psycure Organization" loading="lazy" style="width:100%; height:auto; display:block;">
+                    <div class="preview-box hidden mt-3" style="max-width:900px;">
+                        <div class="grid grid-cols-2 gap-3 items-start">
+                            <img src="./img/certs/cert-psycure.jpg" alt="Psycure Organization certificate of appreciation" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
+                            <img src="./img/certs/cert-psycure-promotion.jpg" alt="Psycure promotion announcement" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1250,11 +1291,31 @@ Achieved a student rating of 4.98/5, the highest across all 10MS EC branches, hi
                     <div class="text-3xl mb-3">🎖️</div>
                     <h4 class="font-bold text-lg text-purple-400 mb-2">Rotary Youth Leadership Awards (RYLA)</h4>
                     <p class="text-gray-300 text-sm">Star RYLArian and Best Team Award (2020)</p>
+                    <button
+                        onclick="this.closest('.bg-purple-900').querySelector('.preview-box').classList.toggle('hidden')"
+                        class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-purple-400 border border-purple-700 border-opacity-50 px-4 py-2 rounded-lg hover:bg-purple-800 hover:bg-opacity-30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        Preview
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="preview-box hidden mt-3">
+                        <img src="./img/certs/cert-ryla-key-2020.jpg" alt="RYLA KEY certificate" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
+                    </div>
                 </div>
                 <div class="card-hover bg-purple-900 bg-opacity-20 p-6 rounded-xl border border-purple-800 border-opacity-30">
                     <div class="text-3xl mb-3">🔬</div>
                     <h4 class="font-bold text-lg text-purple-400 mb-2">National Science Fair</h4>
                     <p class="text-gray-300 text-sm">National Third Runners Up (2016), District Champion (2016, 2017), District First Runners Up (2015).</p>
+                    <button
+                        onclick="this.closest('.bg-purple-900').querySelector('.preview-box').classList.toggle('hidden')"
+                        class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-purple-400 border border-purple-700 border-opacity-50 px-4 py-2 rounded-lg hover:bg-purple-800 hover:bg-opacity-30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        Preview
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="preview-box hidden mt-3">
+                        <img src="./img/certs/cert-science-fair-2016.jpg" alt="37th National Science and Technology Week and Science Fair certificate, 2016" loading="lazy" class="rounded-xl border border-purple-800 border-opacity-40" style="width:100%;height:auto;display:block;">
+                    </div>
                 </div>
                 <div class="card-hover bg-purple-900 bg-opacity-20 p-6 rounded-xl border border-purple-800 border-opacity-30">
                     <div class="text-3xl mb-3">🎯</div>
@@ -1474,6 +1535,65 @@ Achieved a student rating of 4.98/5, the highest across all 10MS EC branches, hi
             </div>
         </div>
     </section>
+
+    <!-- MORE EXTRACURRICULAR ACTIVITIES -->
+    <section id="more-activities" class="py-20 bg-purple-950 bg-opacity-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">More <span class="gradient-text">Extracurricular Activities</span></h2>
+            <p class="text-center text-gray-400 mb-10">Certificates and event posters · scroll sideways, tap to enlarge</p>
+            <div class="gallery-strip">
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/poster-corporate-talks.jpg" alt="Speaker, Corporate Talks (AIBA Business Club, Sylhet)" loading="lazy">
+                    <figcaption>Speaker, Corporate Talks (AIBA Business Club, Sylhet)</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/poster-screen-addiction.jpg" alt="Host, "Dealing with Screen Addiction" webinar" loading="lazy">
+                    <figcaption>Host, "Dealing with Screen Addiction" webinar</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/poster-artisteller-inauguration.jpg" alt="Host, Artisteller logo unveiling & inauguration (Mar 2021)" loading="lazy">
+                    <figcaption>Host, Artisteller logo unveiling & inauguration (Mar 2021)</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/poster-youth-ending-hunger.jpg" alt="Publicity & Publication Secretary, Youth Ending Hunger – JUST Unit" loading="lazy">
+                    <figcaption>Publicity & Publication Secretary, Youth Ending Hunger – JUST Unit</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/poster-ambassador-of-the-month.jpg" alt="Campus Ambassador of the Month, Learning Bangladesh (Dec 2020)" loading="lazy">
+                    <figcaption>Campus Ambassador of the Month, Learning Bangladesh (Dec 2020)</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/poster-social-media-addiction.jpg" alt="Panellist, "Social Media Addiction" – Studio DC Live (Oct 2020)" loading="lazy">
+                    <figcaption>Panellist, "Social Media Addiction" – Studio DC Live (Oct 2020)</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/learning-bangladesh-ambassador.jpg" alt="Campus Ambassador Programme, Learning Bangladesh (2020–21)" loading="lazy">
+                    <figcaption>Campus Ambassador Programme, Learning Bangladesh (2020–21)</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/smartifier-ambassador.jpg" alt="Campus Ambassador, Smartifier Training & Consultation (2021)" loading="lazy">
+                    <figcaption>Campus Ambassador, Smartifier Training & Consultation (2021)</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/campus-leader-summit-2020.jpg" alt="Volunteer, Campus Leader Summit (Sep 2020)" loading="lazy">
+                    <figcaption>Volunteer, Campus Leader Summit (Sep 2020)</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/bncc-wing-camping-2022.jpg" alt="BNCC Air Wing Camping (Mar 2022)" loading="lazy">
+                    <figcaption>BNCC Air Wing Camping (Mar 2022)</figcaption>
+                </figure>
+                <figure class="gallery-item" onclick="openLightbox(this)">
+                    <img src="./img/gallery/bncc-central-camping-2019.jpg" alt="BNCC Central Camping (Feb 2019)" loading="lazy">
+                    <figcaption>BNCC Central Camping (Feb 2019)</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+        <div class="lightbox-cap" id="lightbox-cap"></div>
+    </div>
 
     <!-- STATS
     <section class="py-20">
@@ -1700,6 +1820,10 @@ function updateActiveNav() {
 }
 window.addEventListener('scroll', updateActiveNav);
 window.addEventListener('load', updateActiveNav);
-    </script>
+    
+        function openLightbox(fig){const i=fig.querySelector('img');document.getElementById('lightbox-img').src=i.src;document.getElementById('lightbox-img').alt=i.alt;document.getElementById('lightbox-cap').textContent=fig.querySelector('figcaption').textContent;document.getElementById('lightbox').classList.add('open');}
+        function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+        document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+</script>
 </body>
 </html>
