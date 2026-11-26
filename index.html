@@ -199,6 +199,9 @@
         }
 
         .social-icon:hover { transform: translateY(-5px); }
+        .skills-grid-aligned { display:grid; grid-template-columns:1fr; gap:24px; }
+        @media (min-width:768px) { .skills-grid-aligned { grid-template-columns:1fr 1fr; grid-template-rows:auto repeat(5, auto); grid-auto-flow:column; column-gap:48px; row-gap:24px; } }
+        .skills-grid-aligned > h3 { margin-top:8px; }
         .gallery-strip { display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:12px; -webkit-overflow-scrolling:touch; }
         .gallery-strip::-webkit-scrollbar { height:8px; } .gallery-strip::-webkit-scrollbar-thumb { background:rgba(147,51,234,0.5); border-radius:4px; }
         .gallery-item { flex:0 0 auto; width:300px; margin:0; scroll-snap-align:start; cursor:zoom-in; background:rgba(88,28,135,0.2); border:1px solid rgba(107,33,168,0.3); border-radius:12px; overflow:hidden; }
@@ -1037,10 +1040,8 @@ work, strengthening real-world modelling discipline and client-focused problem s
     <section id="skills" class="py-20">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Skills & <span class="gradient-text">Competencies</span></h2>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-3xl font-bold mb-8 text-purple-400">Technical Skills</h3>
-                    <div class="space-y-6">
+            <div class="skills-grid-aligned">
+                    <h3 class="text-3xl font-bold mb-2 text-purple-400">Technical Skills</h3>
                         <div class="card-hover bg-purple-900 bg-opacity-20 p-6 rounded-xl border border-purple-800 border-opacity-30">
                             <h4 class="text-lg font-semibold mb-3 text-gray-300">Design & Engineering Tools</h4>
                             <p class="text-gray-400">SolidWorks, AutoCAD, CATIA, Fusion 360</p>
@@ -1067,11 +1068,7 @@ work, strengthening real-world modelling discipline and client-focused problem s
        class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-10 py-3 bg-white text-purple-900 rounded-lg hover:text-white hover:bg-[#7D29C6] transition duration-300 text-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg><span>Visit My Graphic Design Portfolio</span></a>
 </div>
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-3xl font-bold mb-8 text-purple-400">Interpersonal Skills</h3>
-                    <div class="space-y-6">
+                    <h3 class="text-3xl font-bold mb-2 text-purple-400">Interpersonal Skills</h3>
                         <div class="card-hover bg-purple-900 bg-opacity-20 p-6 rounded-xl border border-purple-800 border-opacity-30">
                             <h4 class="text-lg font-semibold mb-3 text-gray-300">Communication & Presentation</h4>
                             <p class="text-gray-400">Proven as National Champion in public speaking; skilled at simplifying complex ideas</p>
@@ -1092,8 +1089,6 @@ work, strengthening real-world modelling discipline and client-focused problem s
                             <h4 class="text-lg font-semibold mb-3 text-gray-300">Languages</h4>
                             <p class="text-gray-400">Bangla (native), English (full professional), Hindi (limited working), Urdu (elementary)</p>
                         </div>
-                    </div>
-                </div>
             </div>
             <div class="mt-16">
                 <h3 class="text-3xl font-bold mb-8 text-center text-purple-400">Trainings & Certifications</h3>
